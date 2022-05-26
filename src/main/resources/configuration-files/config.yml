@@ -1,0 +1,70 @@
+MySQL:
+  enabled: false
+  host: 'localhost'
+  database: 'db'
+  username: 'user'
+  password: 'pass'
+  port: 3306
+
+Settings:
+  stack-radius: 5
+  looting-bonus: 10000
+  save-interval: 600 # em segundos
+  spawner-update: 200 # em ticks
+  hologram:
+    - '&6&lMOBSPAWNER'
+    - ''
+    - '&7Dono: &f{owner}'
+    - '&7Tipo: &f{type}'
+    - '&7Stack: &f{stack}'
+
+Messages:
+  enabled: '&aLigado'
+  disabled: '&cDesligado'
+  kill-all-enabled: '&6&lVoltz&f&lMC &8&l➜ &7Você &a&lATIVOU &7o modo Kill-All!'
+  kill-all-disabled: '&6&lVoltz&f&lMC &8&l➜ &7Você &c&lDESATIVOU &7o modo Kill-All!'
+  incorrect-pickaxe: '&6&lVoltz&f&lMC &8&l➜ &cVocê precisa usar uma picareta com toque suave!'
+  offline-player: '&6&lVoltz&f&lMC &8&l➜ &cEsse jogador está offline!'
+  invalid-spawner: '&6&lVoltz&f&lMC &8&l➜ &cO spawner informado não existe!'
+  invalid-amount: '&6&lVoltz&f&lMC &8&l➜ &cA quantia informada é inválida ou você não pode comprar nenhum item!'
+  insufficient-currency: '&6&lVoltz&f&lMC &8&l➜ &cVocê não pode comprar toda essa quantia! ({has}/{need})'
+  spawner-usage: '&6&lVoltz&f&lMC &8&l➜ &cUso correto: /spawners give <jogador> [spawner] <quantia>!'
+  need-permission: '&6&lVoltz&f&lMC &8&l➜ &cVocê não possui permissão para fazer isso!'
+  locked-spawner: '&6&lVoltz&f&lMC &8&l➜ &cVocê ainda não desbloqueou esse spawner!'
+  near-spawner: '&6&lVoltz&f&lMC &8&l➜ &cHá um spawner próximo a esse local! Afaste-se e tente novamente.'
+  choose-amount:
+    - ''
+    - '&6&lVoltz&f&lMC &8&l➜ &7Digite no chat quantos itens deseja comprar!'
+    - ''
+    - ' &8▶ &7Comprando: &f{item}'
+    - ' &8▶ &7Preço: {price}'
+    - ''
+  successful-purchased:
+    - ''
+    - '&6&lVoltz&f&lMC &8&l➜ &7Compra efetuada com sucesso!'
+    - ''
+    - ' &8▶ &7Item adquirido: &f{item}'
+    - ' &8▶ &7Quantia: &fx{amount}'
+    - ' &8▶ &7Preço: {price}'
+    - ''
+
+Next-Page:
+  type: ARROW
+  name: '&aPróxima Página'
+
+Previous-Page:
+  type: ARROW
+  name: '&cPágina Anterior'
+
+Number-Formatter:
+  - "k"
+  - "M"
+  - "B"
+  - "T"
+  - "Q"
+  - "QQ"
+  - "S"
+  - "SS"
+  - "O"
+  - "N"
+  - "D"

@@ -1,0 +1,13 @@
+name: ${project.artifactId}
+description: ${project.description}
+version: ${project.version}
+api-version: 1.8
+author: zPedroo_
+main: com.zpedroo.voltzspawners.VoltzSpawners
+depend: [HolographicDisplays, MultiEconomy, ProtocolLib, PlotSquared, mcMMO, OnlineTime]
+load: POSTWORLD
+commands:
+  spawners:
+    aliases: [spawner, mobspawner, mobspawners]
+  killall:
+    aliases: [ka]

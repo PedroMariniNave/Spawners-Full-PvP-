@@ -1,0 +1,41 @@
+Spawner-Settings:
+  entity-type: CHICKEN
+  entity-name: '&6Galinha &7[&fx{stack}&7]'
+  type-translated: Galinha
+  display-name: '&fSpawner de Galinha'
+  permission: spawner.chicken
+  spawn-delay: 100
+  required-level: 0
+  exp-mcmmo: 100
+  max-stack: 0
+  drops:
+    1:
+      chance: 100
+      display-item:
+        name: '&fPena &7[&fx{amount}]'
+        type: FEATHER
+      item-to-give:
+        type: FEATHER
+    2:
+      # true = amount: 1
+      # false = amount: drops amount
+      single-drop: true
+      chance: 1
+      display-item:
+        name: '&6???'
+        type: MAGMA_CREAM
+        glow: true
+      item-to-give:
+        type: DIAMOND_SWORD
+        glow: true
+        name: '&bEspada Especial :o'
+        lore:
+          - '&7Espada obtida por: &f{player}'
+  item:
+    type: MOB_SPAWNER
+    name: '&7Spawner &8- &6Galinha'
+    lore:
+      - '&7Abaixo estão as informações'
+      - '&7desse spawner:'
+      - ''
+      - ' &8▶ &7Necessário: &fLv. {required_level}'
