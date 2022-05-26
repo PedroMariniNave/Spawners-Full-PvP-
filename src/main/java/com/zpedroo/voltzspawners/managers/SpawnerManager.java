@@ -21,8 +21,13 @@ public class SpawnerManager {
 
     public void clearAll() {
         DataManager.getInstance().getCache().getPlacedSpawners().values().stream().filter(placedSpawner ->
+<<<<<<< HEAD
                 placedSpawner.getHologram() != null).forEach(spawner -> {
                     spawner.getHologram().removeHologram();
+=======
+                placedSpawner.isLoaded() && placedSpawner.getHologram() != null).forEach(spawner -> {
+                    spawner.getHologram().removeHologramAndItem();
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
                     spawner.removeEntities();
                 });
     }
@@ -40,7 +45,12 @@ public class SpawnerManager {
                     PlacedSpawner spawner = DataManager.getInstance().getPlacedSpawner(blocks.getLocation());
                     if (spawner == null) continue;
                     if (!StringUtils.equals(type, spawner.getSpawner().getType())) continue;
+<<<<<<< HEAD
                     if (spawner.hasReachStackLimit() || !spawner.canInteract(player)) continue;
+=======
+                    if (spawner.hasReachStackLimit()) continue;
+                    if (!spawner.canInteract(player)) continue;
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
 
                     BigInteger overLimit = BigInteger.ZERO;
                     if (spawner.getSpawner().getMaximumStack().signum() > 0 && spawner.getStack().add(addAmount).compareTo(spawner.getSpawner().getMaximumStack()) > 0) {

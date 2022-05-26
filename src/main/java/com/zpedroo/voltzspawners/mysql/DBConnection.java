@@ -11,6 +11,7 @@ public class DBConnection {
     private static DBConnection instance;
     public static DBConnection getInstance() { return instance; }
 
+<<<<<<< HEAD
     protected static final String SPAWNERS_TABLE = "spawners";
     protected static final String PLAYERS_TABLE = "spawners_players";
 
@@ -19,6 +20,17 @@ public class DBConnection {
 
     public DBConnection(FileConfiguration file) {
         instance = this;
+=======
+    protected static final String TABLE = "spawners";
+
+    private HikariDataSource hikari;
+    private DBManager dbManager;
+
+    public DBConnection(FileConfiguration file) {
+        instance = this;
+        this.dbManager = new DBManager();
+        this.hikari = new HikariDataSource();
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
 
         enable(file);
         getDBManager().createTable();
@@ -35,6 +47,11 @@ public class DBConnection {
     }
 
     public void closeConnection() {
+<<<<<<< HEAD
+=======
+        if (hikari == null) return;
+
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
         hikari.close();
     }
 

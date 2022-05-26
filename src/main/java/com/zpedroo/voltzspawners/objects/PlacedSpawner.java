@@ -2,6 +2,10 @@ package com.zpedroo.voltzspawners.objects;
 
 import com.zpedroo.voltzspawners.VoltzSpawners;
 import com.zpedroo.voltzspawners.managers.DataManager;
+<<<<<<< HEAD
+=======
+import com.zpedroo.voltzspawners.utils.config.Messages;
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
 import com.zpedroo.voltzspawners.utils.formatter.NumberFormatter;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -15,11 +19,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.math.BigInteger;
 import java.util.HashSet;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
 import java.util.Set;
 import java.util.UUID;
 
 public class PlacedSpawner {
 
+<<<<<<< HEAD
     private final Location location;
     private final UUID ownerUUID;
     private BigInteger stack;
@@ -31,14 +40,38 @@ public class PlacedSpawner {
     private boolean update;
 
     public PlacedSpawner(Location location, UUID ownerUUID, BigInteger stack, Spawner spawner) {
+=======
+    private Location location;
+    private UUID ownerUUID;
+    private BigInteger stack;
+    private Spawner spawner;
+    private SpawnerHologram hologram;
+    private List<Manager> managers;
+    private Set<Entity> entities;
+    private boolean publicSpawner;
+    private boolean loaded;
+    private boolean update;
+    private int spawnDelay;
+
+    public PlacedSpawner(Location location, UUID ownerUUID, BigInteger stack, Spawner spawner, List<Manager> managers, boolean publicSpawner) {
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
         this.location = location;
         this.ownerUUID = ownerUUID;
         this.stack = stack;
         this.spawner = spawner;
+<<<<<<< HEAD
         this.entities = new HashSet<>(1);
         this.spawnDelay = spawner.getSpawnDelay();
         this.loaded = false;
         this.update = false;
+=======
+        this.managers = managers;
+        this.entities = new HashSet<>(1);
+        this.publicSpawner = publicSpawner;
+        this.loaded = false;
+        this.update = false;
+        this.spawnDelay = spawner.getSpawnDelay();
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
     }
 
     public Location getLocation() {
@@ -57,11 +90,36 @@ public class PlacedSpawner {
         return spawner;
     }
 
+<<<<<<< HEAD
+=======
+    public List<Manager> getManagers() {
+        return managers;
+    }
+
+    public Manager getManager(UUID uuid) {
+        for (Manager manager : managers) {
+            if (!manager.getUUID().equals(uuid)) continue;
+
+            return manager;
+        }
+
+        return null;
+    }
+
+    public boolean isPublic() {
+        return publicSpawner;
+    }
+
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
     public boolean isLoaded() {
         return loaded;
     }
 
+<<<<<<< HEAD
     public boolean isUpdate() {
+=======
+    public boolean isQueueUpdate() {
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
         return update;
     }
 
@@ -72,7 +130,15 @@ public class PlacedSpawner {
     }
 
     public boolean canInteract(Player player) {
+<<<<<<< HEAD
         return player.getUniqueId().equals(ownerUUID) || player.hasPermission("spawners.admin");
+=======
+        if (player.getUniqueId().equals(getOwnerUUID())) return true;
+        if (player.hasPermission("spawners.admin")) return true;
+
+        Manager manager = getManager(player.getUniqueId());
+        return manager != null;
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
     }
 
     public int getSpawnDelay() {
@@ -89,7 +155,17 @@ public class PlacedSpawner {
 
         this.removeEntities();
         this.location.getBlock().setType(Material.AIR);
+<<<<<<< HEAD
         if (hologram != null) this.hologram.removeHologram();
+=======
+        this.hologram.removeHologramAndItem();
+    }
+
+    public void setPublic(boolean publicSpawner) {
+        this.publicSpawner = publicSpawner;
+        this.update = true;
+        this.hologram.updateHologramAndItem();
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
     }
 
     public String replace(String text) {
@@ -99,12 +175,22 @@ public class PlacedSpawner {
                 "{owner}",
                 "{stack}",
                 "{max_stack}",
+<<<<<<< HEAD
                 "{type}"
+=======
+                "{type}",
+                "{privacy_status}"
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
         }, new String[] {
                 Bukkit.getOfflinePlayer(ownerUUID).getName(),
                 NumberFormatter.getInstance().format(stack),
                 NumberFormatter.getInstance().format(spawner.getMaximumStack()),
+<<<<<<< HEAD
                 spawner.getTypeTranslated()
+=======
+                spawner.getTypeTranslated(),
+                publicSpawner ? Messages.TRUE : Messages.FALSE
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
         });
     }
 
@@ -136,7 +222,11 @@ public class PlacedSpawner {
             return;
         }
 
+<<<<<<< HEAD
         this.hologram.updateHologram();
+=======
+        this.hologram.updateHologramAndItem();
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
     }
 
     public void addEntity(Entity entity) {
@@ -153,7 +243,12 @@ public class PlacedSpawner {
 
     public void load() {
         this.loaded = true;
+<<<<<<< HEAD
         if (hologram == null) this.hologram = new SpawnerHologram(this);
+=======
+
+        this.hologram = new SpawnerHologram(this);
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
 
         new BukkitRunnable() {
             @Override
@@ -170,10 +265,15 @@ public class PlacedSpawner {
     public void unload() {
         this.loaded = false;
 
+<<<<<<< HEAD
         if (hologram != null) {
             this.hologram.removeHologram();
             this.hologram = null;
         }
+=======
+        this.hologram.removeHologramAndItem();
+        this.hologram = null;
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
     }
 
     public void cache() {

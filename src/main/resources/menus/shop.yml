@@ -34,5 +34,9 @@ Inventory:
           - ' &8▶ &7Valor dos drops: &e{drops} ⛃'
           - ' &8▶ &7EXP de McMMO: &f{mcmmo} &6&l✦'
           - ''
+<<<<<<< HEAD
           - '&7Clique com o &fbotão esquerdo &7para escolher a quantidade'
           - '&7Clique com o &fbotão direito &7para ver os drops'
+=======
+          - '&7Clique para escolher a quantia!'
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98

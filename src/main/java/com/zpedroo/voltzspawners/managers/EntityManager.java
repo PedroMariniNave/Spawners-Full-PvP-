@@ -8,6 +8,10 @@ import com.zpedroo.voltzspawners.utils.serialization.LocationSerialization;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
+<<<<<<< HEAD
+=======
+import org.bukkit.DyeColor;
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -50,6 +54,7 @@ public class EntityManager {
         int maxRange = 3;
 
         Random random = new Random();
+<<<<<<< HEAD
         double x = spawner.getLocation().getX() + random.nextDouble() * (maxRange - minRange) + 1.5D;
         double y = spawner.getLocation().getY() + 3D; // fix spawn bugs
         double z = spawner.getLocation().getZ() + random.nextDouble() * (maxRange - minRange) + 1.5D;
@@ -58,6 +63,15 @@ public class EntityManager {
 
         int tryLimit = 10;
         while (--tryLimit > 0 && !canSpawn(location)) {
+=======
+        double x = spawner.getLocation().getX() + random.nextDouble() * (maxRange - minRange) + 0.5D;
+        double y = spawner.getLocation().getY() + 3D; // fix spawn bugs
+        double z = spawner.getLocation().getZ() + random.nextDouble() * (maxRange - minRange) + 0.5D;
+
+        Location location = new Location(spawner.getLocation().getWorld(), x, y, z);
+
+        while (!canSpawn(location) && location.getY() != spawner.getLocation().getY()) {
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
             location.setY(location.getY() - 1);
         }
 
@@ -72,10 +86,15 @@ public class EntityManager {
 
         spawner.addEntity(entity);
         disableAI(entity);
+<<<<<<< HEAD
+=======
+        entity.setRemoveWhenFarAway(false);
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
         ((CraftEntity) entity).getHandle().b(true); // silent true
 
         switch (entity.getType()) {
             case MAGMA_CUBE:
+<<<<<<< HEAD
                 ((MagmaCube) entity).setSize(3);
                 break;
             case SLIME:
@@ -104,6 +123,31 @@ public class EntityManager {
                 break;
             case ZOMBIE:
                 ((Zombie) entity).setBaby(false);
+=======
+                ((MagmaCube) entity).setSize(2);
+            case SLIME:
+                ((Slime) entity).setSize(2);
+                break;
+            case ZOMBIE:
+                ((Zombie) entity).setBaby(true);
+                break;
+            case SHEEP:
+                ((Sheep) entity).setBaby();
+                ((Sheep) entity).setColor(DyeColor.ORANGE);
+                ((Ageable) entity).setAgeLock(true);
+                break;
+            case COW:
+                ((Cow) entity).setBaby();
+                ((Ageable) entity).setAgeLock(true);
+                break;
+            case PIG:
+                ((Pig) entity).setBaby();
+                ((Ageable) entity).setAgeLock(true);
+                break;
+            case MUSHROOM_COW:
+                ((MushroomCow) entity).setBaby();
+                ((Ageable) entity).setAgeLock(true);
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
                 break;
         }
     }

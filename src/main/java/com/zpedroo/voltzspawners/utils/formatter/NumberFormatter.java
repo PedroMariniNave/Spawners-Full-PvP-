@@ -13,9 +13,15 @@ public class NumberFormatter {
     private static NumberFormatter instance;
     public static NumberFormatter getInstance() { return instance; }
 
+<<<<<<< HEAD
     private final BigInteger THOUSAND = BigInteger.valueOf(1000);
     private final NavigableMap<BigInteger, String> FORMATS = new TreeMap<>();
     private final List<String> NAMES = new LinkedList<>();
+=======
+    private BigInteger THOUSAND = BigInteger.valueOf(1000);
+    private NavigableMap<BigInteger, String> FORMATS = new TreeMap<>();
+    private List<String> NAMES = new LinkedList<>();
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
 
     public NumberFormatter(FileConfiguration file) {
         instance = this;

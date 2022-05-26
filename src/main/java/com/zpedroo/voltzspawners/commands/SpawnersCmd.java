@@ -27,11 +27,14 @@ public class SpawnersCmd implements CommandExecutor {
 
                     Menus.getInstance().openTopSpawnersMenu(player);
                     return true;
+<<<<<<< HEAD
                 case "SHOP":
                     if (player == null) return true;
 
                     Menus.getInstance().openShopMenu(player);
                     return true;
+=======
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
                 case "GIVE":
                     if (!sender.hasPermission("spawners.admin")) break;
 
@@ -59,9 +62,13 @@ public class SpawnersCmd implements CommandExecutor {
                         return true;
                     }
 
+<<<<<<< HEAD
                     if (amount.compareTo(BigInteger.valueOf(2304)) > 0) amount = BigInteger.valueOf(2304);
 
                     target.getInventory().addItem(spawner.getItem(amount.intValue()));
+=======
+                    target.getInventory().addItem(spawner.getItem(amount));
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
                     return true;
             }
         }

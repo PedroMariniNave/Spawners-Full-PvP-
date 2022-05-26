@@ -16,7 +16,13 @@ public class InventoryManager {
                 continue;
             }
 
+<<<<<<< HEAD
             if (items.isSimilar(item)) free += item.getMaxStackSize() - items.getAmount();
+=======
+            if (!items.isSimilar(item)) continue;
+
+            free += item.getMaxStackSize() - items.getAmount();
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
         }
 
         return free;

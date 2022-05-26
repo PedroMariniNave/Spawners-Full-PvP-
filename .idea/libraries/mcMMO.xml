@@ -1,7 +1,11 @@
 <component name="libraryTable">
   <library name="mcMMO">
     <CLASSES>
+<<<<<<< HEAD
       <root url="jar://$PROJECT_DIR$/src/main/resources/libraries/mcMMO.jar!/" />
+=======
+      <root url="jar://$USER_HOME$/Desktop/Full PvP/plugins/mcMMO.jar!/" />
+>>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
     </CLASSES>
     <JAVADOC />
     <SOURCES />
