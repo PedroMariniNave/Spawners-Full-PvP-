@@ -2,11 +2,9 @@ package com.zpedroo.voltzspawners.managers;
 
 import com.zpedroo.voltzspawners.VoltzSpawners;
 import com.zpedroo.voltzspawners.objects.PlacedSpawner;
-import com.zpedroo.voltzspawners.utils.config.Settings;
 import com.zpedroo.voltzspawners.utils.formatter.NumberFormatter;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -49,16 +47,11 @@ public class EntityManager {
 
         LivingEntity entity = (LivingEntity)spawner.getLocation().getWorld().spawnEntity(spawnLocation, spawner.getSpawner().getEntityType());
         setEntityMetadata(spawner, amount, entity);
-        entity.setCustomName(StringUtils.replaceEach(spawner.getSpawner().getEntityName(), new String[] { "{stack}" }, new String[] { NumberFormatter.getInstance().format(amount) }));
+        setEntityName(entity, spawner, amount);
         spawner.addEntity(entity);
         disableAI(entity);
         disableEntitySounds((CraftEntity) entity);
         fixEntitySize(entity);
-    }
-
-    private static void setEntityMetadata(PlacedSpawner spawner, BigInteger amount, LivingEntity entity) {
-        entity.setMetadata("MobAmount", new FixedMetadataValue(VoltzSpawners.get(), amount.toString()));
-        entity.setMetadata("Spawner", new FixedMetadataValue(VoltzSpawners.get(), SerializatorManager.getLocationSerialization().serialize(spawner.getLocation())));
     }
 
     @NotNull
@@ -72,8 +65,7 @@ public class EntityManager {
         return new Location(spawner.getLocation().getWorld(), x, y, z);
     }
 
-    public static void removeStack(Entity entity, BigInteger amount, PlacedSpawner placedSpawner) {
-        String spawner = entity.getMetadata("Spawner").get(0).asString();
+    public static void removeStack(LivingEntity entity, BigInteger amount, PlacedSpawner spawner) {
         BigInteger stack = new BigInteger(entity.getMetadata("MobAmount").get(0).asString());
         BigInteger newStack = stack.subtract(amount);
         if (newStack.signum() <= 0) {
@@ -81,13 +73,17 @@ public class EntityManager {
             return;
         }
 
-        entity.setMetadata("MobAmount", new FixedMetadataValue(VoltzSpawners.get(), newStack.toString()));
-        entity.setMetadata("Spawner", new FixedMetadataValue(VoltzSpawners.get(), spawner));
-        entity.setCustomName(ChatColor.translateAlternateColorCodes('&', StringUtils.replaceEach(placedSpawner.getSpawner().getEntityName(), new String[]{
-                "{stack}"
-        }, new String[]{
-                NumberFormatter.getInstance().format(newStack)
-        })));
+        setEntityMetadata(spawner, newStack, entity);
+        setEntityName(entity, spawner, newStack);
+    }
+
+    private static void setEntityName(LivingEntity entity, PlacedSpawner spawner, BigInteger newStack) {
+        entity.setCustomName(StringUtils.replace(spawner.getSpawner().getEntityName(), "{stack}", NumberFormatter.getInstance().format(newStack)));
+    }
+
+    private static void setEntityMetadata(PlacedSpawner spawner, BigInteger amount, LivingEntity entity) {
+        entity.setMetadata("MobAmount", new FixedMetadataValue(VoltzSpawners.get(), amount.toString()));
+        entity.setMetadata("Spawner", new FixedMetadataValue(VoltzSpawners.get(), SerializatorManager.getLocationSerialization().serialize(spawner.getLocation())));
     }
     
     private static void disableAI(Entity entity) {
