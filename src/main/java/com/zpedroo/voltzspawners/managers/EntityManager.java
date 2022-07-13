@@ -23,20 +23,17 @@ import static com.zpedroo.voltzspawners.utils.config.Settings.STACK_RADIUS;
 public class EntityManager {
 
     public static void spawn(PlacedSpawner spawner, BigInteger amount) {
-        for (Entity nearbyEntity : spawner.getLocation().getWorld().getNearbyEntities(spawner.getLocation(), STACK_RADIUS, STACK_RADIUS, STACK_RADIUS)) {
-            if (nearbyEntity == null) continue;
+        Location location = spawner.getLocation();
+        for (Entity nearbyEntity : location.getWorld().getNearbyEntities(location, STACK_RADIUS, STACK_RADIUS, STACK_RADIUS)) {
+            if (!(nearbyEntity instanceof LivingEntity)) continue;
             if (!nearbyEntity.getType().equals(spawner.getSpawner().getEntityType())) continue;
             if (!nearbyEntity.hasMetadata("Spawner")) continue;
-
-            String serialized = SerializatorManager.getLocationSerialization().serialize(spawner.getLocation());
-            if (!StringUtils.equals(nearbyEntity.getMetadata("Spawner").get(0).asString(), serialized)) continue;
 
             BigInteger stack = new BigInteger(nearbyEntity.getMetadata("MobAmount").get(0).asString());
             BigInteger newStack = stack.add(amount);
 
-            nearbyEntity.setMetadata("MobAmount", new FixedMetadataValue(VoltzSpawners.get(), newStack.toString()));
-            nearbyEntity.setMetadata("Spawner", new FixedMetadataValue(VoltzSpawners.get(), serialized));
-            nearbyEntity.setCustomName(StringUtils.replaceEach(spawner.getSpawner().getEntityName(), new String[] { "{stack}" }, new String[] { NumberFormatter.getInstance().format(newStack) }));
+            setEntityMetadata(spawner, newStack, (LivingEntity) nearbyEntity);
+            setEntityName((LivingEntity) nearbyEntity, spawner, newStack);
             spawner.addEntity(nearbyEntity);
             return;
         }
