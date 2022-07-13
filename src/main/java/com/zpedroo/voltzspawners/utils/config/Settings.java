@@ -1,10 +1,7 @@
 package com.zpedroo.voltzspawners.utils.config;
 
 import com.zpedroo.voltzspawners.utils.FileUtils;
-import org.bukkit.ChatColor;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.zpedroo.voltzspawners.utils.color.Colorize;
 
 public class Settings {
 
@@ -14,30 +11,7 @@ public class Settings {
 
     public static final int SPAWNER_UPDATE = FileUtils.get().getInt(FileUtils.Files.CONFIG, "Settings.spawner-update");
 
-<<<<<<< HEAD
-=======
-    public static final int TAX_REMOVE_STACK = FileUtils.get().getInt(FileUtils.Files.CONFIG, "Settings.tax-remove-stack");
-
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
     public static final long SAVE_INTERVAL = FileUtils.get().getLong(FileUtils.Files.CONFIG, "Settings.save-interval");
 
-    public static final String[] SPAWNER_HOLOGRAM = getColored(FileUtils.get().getStringList(FileUtils.Files.CONFIG, "Settings.hologram")).toArray(new String[1]);
-
-<<<<<<< HEAD
-=======
-    public static final String DROP_DISPLAY = getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.drop-display"));
-
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
-    private static String getColored(String str) {
-        return ChatColor.translateAlternateColorCodes('&', str);
-    }
-
-    private static List<String> getColored(List<String> list) {
-        List<String> colored = new ArrayList<>(list.size());
-        for (String str : list) {
-            colored.add(getColored(str));
-        }
-
-        return colored;
-    }
+    public static final String[] SPAWNER_HOLOGRAM = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.CONFIG, "Settings.hologram")).toArray(new String[0]);
 }

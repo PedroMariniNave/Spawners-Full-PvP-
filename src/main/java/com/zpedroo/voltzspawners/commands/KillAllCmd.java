@@ -10,12 +10,11 @@ import org.bukkit.entity.Player;
 
 public class KillAllCmd implements CommandExecutor {
 
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) return true;
 
         Player player = (Player) sender;
-        PlayerData data = DataManager.getInstance().loadPlayerData(player);
+        PlayerData data = DataManager.getInstance().getPlayerData(player);
 
         boolean killAll = !data.isKillAll();
         data.setKillAll(killAll);

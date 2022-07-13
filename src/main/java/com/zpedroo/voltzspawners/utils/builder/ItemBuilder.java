@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -26,16 +27,9 @@ import java.util.UUID;
 
 public class ItemBuilder {
 
-<<<<<<< HEAD
     private final ItemStack item;
-=======
-    private ItemStack item;
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
 
-    private Method metaSetProfileMethod;
-    private Field metaProfileField;
-
-    public ItemBuilder(Material material, int amount, short durability) {
+    public ItemBuilder(@NotNull Material material, int amount, short durability) {
         if (StringUtils.equals(material.toString(), "SKULL_ITEM")) {
             this.item = new ItemStack(material, amount, (short) 3);
         } else {
@@ -43,7 +37,7 @@ public class ItemBuilder {
         }
     }
 
-    public ItemBuilder(ItemStack item) {
+    public ItemBuilder(@NotNull ItemStack item) {
         this.item = item;
     }
 
@@ -51,8 +45,8 @@ public class ItemBuilder {
         return build(file, where, null, null);
     }
 
-    public static ItemBuilder build(FileConfiguration file, String where, String[] placeholders, String[] replaces) {
-        String type = StringUtils.replaceEach(file.getString(where + ".type"), placeholders, replaces);
+    public static ItemBuilder build(FileConfiguration file, String where, String[] placeholders, String[] replacers) {
+        String type = StringUtils.replaceEach(file.getString(where + ".type"), placeholders, replacers);
         short data = (short) file.getInt(where + ".data", 0);
         int amount = file.getInt(where + ".amount", 1);
 
@@ -63,18 +57,18 @@ public class ItemBuilder {
 
         if (file.contains(where + ".name")) {
             String name = ChatColor.translateAlternateColorCodes('&', file.getString(where + ".name"));
-            builder.setName(StringUtils.replaceEach(name, placeholders, replaces));
+            builder.setName(StringUtils.replaceEach(name, placeholders, replacers));
         }
 
         if (file.contains(where + ".lore")) {
-            builder.setLore(file.getStringList(where + ".lore"), placeholders, replaces);
+            builder.setLore(file.getStringList(where + ".lore"), placeholders, replacers);
         }
 
         if (file.contains(where + ".owner")) {
             String owner = file.getString(where + ".owner");
 
             if (owner.length() <= 16) {
-                builder.setSkullOwner(StringUtils.replaceEach(owner, placeholders, replaces));
+                builder.setSkullOwner(StringUtils.replaceEach(owner, placeholders, replacers));
             } else {
                 builder.setCustomTexture(owner);
             }
@@ -219,19 +213,14 @@ public class ItemBuilder {
 
     public ItemBuilder setCustomTexture(SkullMeta meta, String base64) {
         try {
-            if (metaSetProfileMethod == null) {
-                metaSetProfileMethod = meta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
-                metaSetProfileMethod.setAccessible(true);
-            }
+            Method metaSetProfileMethod = meta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
+            metaSetProfileMethod.setAccessible(true);
             metaSetProfileMethod.invoke(meta, createProfile(base64));
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
             try {
-                if (metaProfileField == null) {
-                    metaProfileField = meta.getClass().getDeclaredField("profile");
-                    metaProfileField.setAccessible(true);
-                }
+                Field metaProfileField = meta.getClass().getDeclaredField("profile");
+                metaProfileField.setAccessible(true);
                 metaProfileField.set(meta, createProfile(base64));
-
             } catch (NoSuchFieldException | IllegalAccessException ex2) {
                 ex2.printStackTrace();
             }
@@ -241,12 +230,10 @@ public class ItemBuilder {
     }
 
     private GameProfile createProfile(String base64) {
-        UUID id = new UUID(
-                base64.substring(base64.length() - 20).hashCode(),
-                base64.substring(base64.length() - 10).hashCode()
-        );
-        GameProfile profile = new GameProfile(id, "Player");
+        UUID uuid = new UUID(base64.substring(base64.length() - 20).hashCode(), base64.substring(base64.length() - 10).hashCode());
+        GameProfile profile = new GameProfile(uuid, "Player");
         profile.getProperties().put("textures", new Property("textures", base64));
+
         return profile;
     }
 

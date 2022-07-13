@@ -1,34 +1,25 @@
 package com.zpedroo.voltzspawners.utils.formatter;
 
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.configuration.file.FileConfiguration;
-
-import java.math.BigInteger;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
+import java.math.*;
+import org.bukkit.configuration.file.*;
+import org.apache.commons.lang.*;
 import java.util.*;
+import java.text.*;
 
 public class NumberFormatter {
 
     private static NumberFormatter instance;
     public static NumberFormatter getInstance() { return instance; }
 
-<<<<<<< HEAD
-    private final BigInteger THOUSAND = BigInteger.valueOf(1000);
+    private final BigInteger THOUSAND = BigInteger.valueOf(1000L);
     private final NavigableMap<BigInteger, String> FORMATS = new TreeMap<>();
     private final List<String> NAMES = new LinkedList<>();
-=======
-    private BigInteger THOUSAND = BigInteger.valueOf(1000);
-    private NavigableMap<BigInteger, String> FORMATS = new TreeMap<>();
-    private List<String> NAMES = new LinkedList<>();
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
-
-    public NumberFormatter(FileConfiguration file) {
+    
+    public NumberFormatter(final FileConfiguration file) {
         instance = this;
         NAMES.addAll(file.getStringList("Number-Formatter"));
-
-        for (int i = 0; i < NAMES.size(); i++) {
-            FORMATS.put(THOUSAND.pow(i+1), NAMES.get(i));
+        for (int i = 0; i < NAMES.size(); ++i) {
+            FORMATS.put(THOUSAND.pow(i + 1), NAMES.get(i));
         }
     }
 
@@ -69,13 +60,11 @@ public class NumberFormatter {
         return rounded + "" + entry.getValue();
     }
 
-    public String formatDecimal(double value) {
-        DecimalFormat formatter = new DecimalFormat("#.#");
+    public String formatDecimal(double number) {
+        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
         symbols.setGroupingSeparator('.');
-
         formatter.setDecimalFormatSymbols(symbols);
-
-        return formatter.format(value);
+        return formatter.format(number);
     }
 }

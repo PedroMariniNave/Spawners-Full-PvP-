@@ -16,15 +16,10 @@ public class InventoryUtils {
     private static InventoryUtils instance;
     public static InventoryUtils get() { return instance; }
 
-<<<<<<< HEAD
-    private final Map<Player, InventoryBuilder> viewers;
-=======
-    private Map<Player, InventoryBuilder> viewers;
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
+    private final Map<Player, InventoryBuilder> viewers = new HashMap<>(16);
 
     public InventoryUtils() {
         instance = this;
-        this.viewers = new HashMap<>(16);
         VoltzSpawners.get().getServer().getPluginManager().registerEvents(new ActionListeners(), VoltzSpawners.get());
     }
 
@@ -76,13 +71,8 @@ public class InventoryUtils {
 
     public static class Action {
 
-<<<<<<< HEAD
         private final Runnable action;
         private final ActionType actionType;
-=======
-        private Runnable action;
-        private ActionType actionType;
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
 
         public Action(Runnable action, ActionType actionType) {
             this.action = action;

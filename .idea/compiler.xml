@@ -2,16 +2,16 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-<<<<<<< HEAD
         <module name="Spawners-Full-PvP--master" />
-=======
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
-        <module name="Spawners [Full PvP]" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Spawners-Full-PvP--master" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

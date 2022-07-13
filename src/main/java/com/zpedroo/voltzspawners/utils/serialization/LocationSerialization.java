@@ -4,9 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-public class LocationSerialization {
+public class LocationSerialization implements ISerialization<Location> {
 
-    public static String serializeLocation(Location location) {
+    @Override
+    public String serialize(Location location) {
         if (location == null) return null;
 
         StringBuilder serialized = new StringBuilder(4);
@@ -18,10 +19,11 @@ public class LocationSerialization {
         return serialized.toString();
     }
 
-    public static Location deserializeLocation(String location) {
-        if (location == null) return null;
+    @Override
+    public Location deserialize(String serialized) {
+        if (serialized == null) return null;
 
-        String[] locationSplit = location.split("#");
+        String[] locationSplit = serialized.split("#");
         World world = Bukkit.getWorld(locationSplit[0]);
         double x = Double.parseDouble(locationSplit[1]);
         double y = Double.parseDouble(locationSplit[2]);

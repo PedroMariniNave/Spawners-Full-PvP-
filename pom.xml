@@ -11,13 +11,10 @@
     <name>Spawners</name>
     <description>Only a simple spawners plugin.</description>
 
-<<<<<<< HEAD
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-=======
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
     <repositories>
         <repository>
             <id>spigot-repo</id>
@@ -25,14 +22,6 @@
         </repository>
 
         <repository>
-<<<<<<< HEAD
-=======
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-
-        <repository>
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
             <id>codemc-repo</id>
             <url>https://repo.codemc.io/repository/maven-public/</url>
         </repository>
@@ -50,20 +39,10 @@
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>4.0.3</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
-<<<<<<< HEAD
-=======
-            <groupId>com.comphenix.protocol</groupId>
-            <artifactId>ProtocolLib</artifactId>
-            <version>LATEST</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
             <groupId>com.gmail.filoghost.holographicdisplays</groupId>
             <artifactId>holographicdisplays-api</artifactId>
             <version>LATEST</version>
@@ -83,6 +62,13 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -91,17 +77,12 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-<<<<<<< HEAD
                     <include>**/*.yml</include>
-=======
-                    <include>plugin.yml</include>
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
                 </includes>
             </resource>
 
             <resource>
                 <directory>src/main/resources</directory>
-<<<<<<< HEAD
                 <filtering>true</filtering>
                 <excludes>
                     <exclude>**/*.jar</exclude>
@@ -109,14 +90,6 @@
             </resource>
         </resources>
 
-=======
-                <filtering>false</filtering>
-                <excludes>
-                    <exclude>plugin.yml</exclude>
-                </excludes>
-            </resource>
-        </resources>
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

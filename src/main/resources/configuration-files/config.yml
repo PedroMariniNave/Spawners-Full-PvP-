@@ -11,18 +11,12 @@ Settings:
   looting-bonus: 10000
   save-interval: 600 # em segundos
   spawner-update: 200 # em ticks
-<<<<<<< HEAD
-=======
-  tax-remove-stack: 10 # em porcentagem
-  drop-display: '&6{translated_name} &fx{amount}'
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
   hologram:
     - '&6&lMOBSPAWNER'
     - ''
     - '&7Dono: &f{owner}'
     - '&7Tipo: &f{type}'
     - '&7Stack: &f{stack}'
-<<<<<<< HEAD
 
 Messages:
   enabled: '&aLigado'
@@ -30,44 +24,13 @@ Messages:
   kill-all-enabled: '&6&lVoltz&f&lMC &8&l➜ &7Você &a&lATIVOU &7o modo Kill-All!'
   kill-all-disabled: '&6&lVoltz&f&lMC &8&l➜ &7Você &c&lDESATIVOU &7o modo Kill-All!'
   incorrect-pickaxe: '&6&lVoltz&f&lMC &8&l➜ &cVocê precisa usar uma picareta com toque suave!'
-=======
-    - '&7Público: {privacy_status}'
-
-Titles:
-  when-sell:
-    title: ''
-    subtitle: '&e&l+{final_price} ⛃'
-
-Messages:
-  public: '&aPúblico'
-  private: '&cPrivado'
-  enabled: '&aLigado'
-  disabled: '&cDesligado'
-  'true': '&aSim'
-  'false': '&cNão'
-  remove-stack-min: '&6&lVoltz&f&lMC &8&l➜ &cA quantia precisa ser acima de {tax}!'
-  remove-stack-successful: '&6&lVoltz&f&lMC &8&l➜ &7Stacks removidos com sucesso! &f{lost} &7spawners foram destruídos nesse processo.'
-  incorrect-pickaxe: '&6&lVoltz&f&lMC &8&l➜ &c{lost} spawners foram destruídos por não ter usado uma ferramenta ideal de remoção!'
-  remove-stack:
-    - ''
-    - '&6&lVoltz&f&lMC &8&l➜ &7Digite no chat quantos spawners deseja remover!'
-    - '&6&lVoltz&f&lMC &8&l➜ &7Para remover todos, digite `&f*&7`'
-    - '&6&lVoltz&f&lMC &8&l➜ &7Lembre-se que há uma taxa de &f{tax}% &7ao remover stacks!'
-    - ''
-  only-owner: '&6&lVoltz&f&lMC &8&l➜ &cApenas o dono pode gerenciar as permissões!'
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
   offline-player: '&6&lVoltz&f&lMC &8&l➜ &cEsse jogador está offline!'
   invalid-spawner: '&6&lVoltz&f&lMC &8&l➜ &cO spawner informado não existe!'
   invalid-amount: '&6&lVoltz&f&lMC &8&l➜ &cA quantia informada é inválida ou você não pode comprar nenhum item!'
   insufficient-currency: '&6&lVoltz&f&lMC &8&l➜ &cVocê não pode comprar toda essa quantia! ({has}/{need})'
   spawner-usage: '&6&lVoltz&f&lMC &8&l➜ &cUso correto: /spawners give <jogador> [spawner] <quantia>!'
   need-permission: '&6&lVoltz&f&lMC &8&l➜ &cVocê não possui permissão para fazer isso!'
-<<<<<<< HEAD
   locked-spawner: '&6&lVoltz&f&lMC &8&l➜ &cVocê ainda não desbloqueou esse spawner!'
-=======
-  has-permission: '&6&lVoltz&f&lMC &8&l➜ &cEsse jogador já possui permissões nesse spawner!'
-  spawner-permission: '&6&lVoltz&f&lMC &8&l➜ &cVocê não possui permissão para usar esse spawner!'
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
   near-spawner: '&6&lVoltz&f&lMC &8&l➜ &cHá um spawner próximo a esse local! Afaste-se e tente novamente.'
   choose-amount:
     - ''
@@ -84,12 +47,6 @@ Messages:
     - ' &8▶ &7Quantia: &fx{amount}'
     - ' &8▶ &7Preço: {price}'
     - ''
-<<<<<<< HEAD
-=======
-  wait: '&6&lVoltz&f&lMC &8&l➜ &aAdicionando amigo, aguarde...'
-  add-friend:
-    - '&6&lVoltz&f&lMC &8&l➜ &7Digite no chat o nick do jogador!'
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
 
 Next-Page:
   type: ARROW
@@ -99,25 +56,6 @@ Previous-Page:
   type: ARROW
   name: '&cPágina Anterior'
 
-<<<<<<< HEAD
-=======
-Drops-Translator:
-  - 'FEATHER,Pena de Galinha'
-  - 'RAW_CHICKEN,Frango Cru'
-  - 'COOKED_CHICKEN,Frango Assado'
-
-Time-Formatter:
-  second: segundo
-  seconds: segundos
-  minute: minuto
-  minutes: minutos
-  hour: hora
-  hours: horas
-  day: dia
-  days: dias
-  now: agora
-
->>>>>>> d1a39a0d6c92e3622fb633fd31c3e383d802bd98
 Number-Formatter:
   - "k"
   - "M"
