@@ -1,0 +1,45 @@
+Spawner-Settings:
+  entity-type: CHICKEN
+  entity-name: '&eGalinha &7[&fx{stack}&7]'
+  type-translated: Galinha
+  display-name: '&eSpawner de Galinha'
+  spawn-delay: 100
+  exp-mcmmo: 5
+  max-stack: 0
+  drops:
+    1:
+      chance: 100
+      display-item:
+        name: '&ePena &7[&fx{amount}]'
+        type: FEATHER
+      item-to-give:
+        type: FEATHER
+  item:
+    type: MOB_SPAWNER
+    name: '&7Spawner &8- &eGalinha'
+    lore:
+      - '&7Abaixo estão as informações'
+      - '&7desse spawner:'
+      - ''
+      - ' &8▶ &7EXP de McMMO: &f{mcmmo} &6&l✦'
+      - ' &8▶ &7Necessário: &fLv. {required_level}'
+      - ' &8▶ &7Drops Especiais: &cNenhum'
+
+Upgrades:
+  SPAWN_TIME:
+    1:
+      upgrade-effect: 0
+      cost: 0
+    2:
+      upgrade-effect: 20
+      cost: 15000000
+    3:
+      upgrade-effect: 40
+      cost: 30000000
+  SPECIAL_DROPS:
+    1:
+      cost: 0
+    2:
+      cost: 50000000
+    3:
+      cost: 100000000

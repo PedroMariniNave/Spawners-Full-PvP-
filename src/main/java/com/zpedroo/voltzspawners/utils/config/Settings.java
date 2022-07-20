@@ -14,4 +14,6 @@ public class Settings {
     public static final long SAVE_INTERVAL = FileUtils.get().getLong(FileUtils.Files.CONFIG, "Settings.save-interval");
 
     public static final String[] SPAWNER_HOLOGRAM = Colorize.getColored(FileUtils.get().getStringList(FileUtils.Files.CONFIG, "Settings.hologram")).toArray(new String[0]);
+
+    public static final String CURRENCY_SEPARATOR = Colorize.getColored(FileUtils.get().getString(FileUtils.Files.CONFIG, "Settings.currency-separator"));
 }

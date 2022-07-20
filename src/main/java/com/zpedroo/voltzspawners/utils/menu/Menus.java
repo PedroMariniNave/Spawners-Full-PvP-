@@ -1,6 +1,7 @@
 package com.zpedroo.voltzspawners.utils.menu;
 
 import com.zpedroo.multieconomy.objects.general.Currency;
+import com.zpedroo.voltzspawners.utils.color.Colorize;
 import org.bukkit.inventory.*;
 import com.zpedroo.voltzspawners.utils.*;
 import org.bukkit.entity.*;
@@ -32,7 +33,7 @@ public class Menus extends InventoryUtils {
     public void openMainMenu(Player player) {
         FileUtils.Files file = FileUtils.Files.MAIN;
 
-        String title = ChatColor.translateAlternateColorCodes('&', FileUtils.get().getString(file, "Inventory.title"));
+        String title = Colorize.getColored(FileUtils.get().getString(file, "Inventory.title"));
         int size = FileUtils.get().getInt(file, "Inventory.size");
 
         InventoryBuilder inventory = new InventoryBuilder(title, size);
@@ -62,7 +63,7 @@ public class Menus extends InventoryUtils {
     public void openTopSpawnersMenu(final Player player) {
         FileUtils.Files file = FileUtils.Files.TOP_SPAWNERS;
 
-        String title = ChatColor.translateAlternateColorCodes('&', FileUtils.get().getString(file, "Inventory.title"));
+        String title = Colorize.getColored(FileUtils.get().getString(file, "Inventory.title"));
         int size = FileUtils.get().getInt(file, "Inventory.size");
 
         InventoryBuilder inventory = new InventoryBuilder(title, size);
@@ -85,7 +86,7 @@ public class Menus extends InventoryUtils {
     public void openShopMenu(final Player player) {
         FileUtils.Files file = FileUtils.Files.SHOP;
 
-        String title = ChatColor.translateAlternateColorCodes('&', FileUtils.get().getString(file, "Inventory.title"));
+        String title = Colorize.getColored(FileUtils.get().getString(file, "Inventory.title"));
         int size = FileUtils.get().getInt(file, "Inventory.size");
         int nextPageSlot = FileUtils.get().getInt(file, "Inventory.next-page-slot");
         int previousPageSlot = FileUtils.get().getInt(file, "Inventory.previous-page-slot");
@@ -99,21 +100,46 @@ public class Menus extends InventoryUtils {
             Spawner spawner = DataManager.getInstance().getSpawner(str);
             if (spawner == null) continue;
 
-            Currency currency = CurrencyAPI.getCurrency(FileUtils.get().getString(file, "Inventory.items." + str + ".currency"));
-            if (currency == null) currency = CurrencyAPI.getVaultCurrency();
+            String where = "Inventory.items." + str;
+            Map<Currency, BigInteger> price = new HashMap<>(2);
+            StringBuilder priceDisplay = new StringBuilder();
+            for (String prices : FileUtils.get().getStringList(file, where + ".price")) {
+                String[] split = prices.split(",");
+                if (split.length < 2) continue;
 
-            BigInteger price = NumberFormatter.getInstance().filter(FileUtils.get().getString(file, "Inventory.items." + str + ".price", "0"));
+                Currency currency = CurrencyAPI.getCurrency(split[0]);
+                if (currency == null) continue;
+
+                BigInteger value = NumberFormatter.getInstance().filter(split[1]);
+                if (value.signum() <= 0) continue;
+
+                price.put(currency, value);
+
+                if (priceDisplay.length() > 0) priceDisplay.append(Settings.CURRENCY_SEPARATOR);
+                priceDisplay.append(currency.getAmountDisplay(value));
+            }
+
             String toGet = spawner.isUnlocked(player) ? "unlocked" : "locked";
-
-            ItemStack item = ItemBuilder.build(FileUtils.get().getFile(file).getFileConfiguration(), (FileUtils.get().getFile(file).getFileConfiguration().contains("Inventory.items." + str + ".locked") && FileUtils.get().getFile(file).getFileConfiguration().contains("Inventory.items." + str + ".unlocked")) ? ("Inventory.items." + str + "." + toGet) : ("Inventory.items." + str), new String[] { "{price}", "{mcmmo}", "{required_level}", "{type}" }, new String[] { currency.getAmountDisplay(price), NumberFormatter.getInstance().formatDecimal(spawner.getMcMMOExp()), NumberFormatter.getInstance().formatDecimal(spawner.getRequiredLevel()), spawner.getTypeTranslated() }).build();
+            ItemStack item = null;
+            String[] placeholders = new String[]{ "{price}", "{mcmmo}", "{required_level}", "{type}" };
+            String[] replacers = new String[]{
+                    priceDisplay.toString(),
+                    NumberFormatter.getInstance().formatDecimal(spawner.getMcMMOExp()),
+                    NumberFormatter.getInstance().formatDecimal(spawner.getRequiredLevel()),
+                    spawner.getTypeTranslated()
+            };
+            if (FileUtils.get().getFile(file).getFileConfiguration().contains(where + ".locked") && FileUtils.get().getFile(file).getFileConfiguration().contains(where + ".unlocked")) {
+                item = ItemBuilder.build(FileUtils.get().getFile(file).getFileConfiguration(), where + "." + toGet, placeholders, replacers).build();
+            } else {
+                item = ItemBuilder.build(FileUtils.get().getFile(file).getFileConfiguration(), where, placeholders, replacers).build();
+            }
             int slot = Integer.parseInt(slots[i]);
 
-            final Currency finalCurrency = currency;
             inventory.addItem(item, slot, () -> {
-                if (price.signum() <= 0 || !spawner.isUnlocked(player)) return;
+                if (!spawner.isUnlocked(player)) return;
 
                 inventory.close(player);
-                PlayerChatListener.getPlayerChat().put(player, new PlayerChat(player, spawner, finalCurrency, price, PlayerAction.BUY_SPAWNER));
+                PlayerChatListener.getPlayerChat().put(player, new PlayerChat(player, spawner, price, PlayerAction.BUY_SPAWNER));
                 clearChat(player);
 
                 for (String msg : Messages.CHOOSE_AMOUNT) {
@@ -123,7 +149,7 @@ public class Menus extends InventoryUtils {
                             "{type}"
                     }, new String[]{
                             spawner.getItem(1).getItemMeta().getDisplayName(),
-                            finalCurrency.getAmountDisplay(price),
+                            priceDisplay.toString(),
                             spawner.getTypeTranslated()
                     }));
                 }
@@ -142,7 +168,7 @@ public class Menus extends InventoryUtils {
     public void openDropsPreviewMenu(Player player, Spawner spawner) {
         FileUtils.Files file = FileUtils.Files.DROPS_PREVIEW;
 
-        String title = ChatColor.translateAlternateColorCodes('&', FileUtils.get().getString(file, "Inventory.title"));
+        String title = Colorize.getColored(FileUtils.get().getString(file, "Inventory.title"));
         int size = FileUtils.get().getInt(file, "Inventory.size");
 
         InventoryBuilder inventory = new InventoryBuilder(title, size);
