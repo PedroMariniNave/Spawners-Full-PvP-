@@ -48,8 +48,9 @@ public class EntityListeners implements Listener {
             event.setCancelled(true);
             return;
         }
-        if (entity.getHealth() - event.getDamage() > 0) return;
+        if (entity.getHealth() - event.getDamage() > 2) return;
 
+        event.setDamage(1);
         entity.setHealth(entity.getMaxHealth());
 
         boolean isKillAll = DataManager.getInstance().getPlayerData(player).isKillAll();
