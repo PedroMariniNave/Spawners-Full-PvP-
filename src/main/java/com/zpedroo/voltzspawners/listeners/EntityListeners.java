@@ -98,8 +98,8 @@ public class EntityListeners implements Listener {
     }
 
     private void setKillerMetadata(LivingEntity entity, Player killer) {
-        entity.removeMetadata("MobKillerName", VoltzSpawners.get());
-        entity.setMetadata("MobKillerName", new FixedMetadataValue(VoltzSpawners.get(), killer.getName()));
+        entity.removeMetadata("MobKiller", VoltzSpawners.get());
+        entity.setMetadata("MobKiller", new FixedMetadataValue(VoltzSpawners.get(), killer));
     }
     
     private void dropOrStackSpawnerDrops(PlacedSpawner spawner, BigInteger amount, Location location) {
