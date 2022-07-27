@@ -50,9 +50,9 @@ public class EntityListeners implements Listener {
             event.setCancelled(true);
             return;
         }
-        if (entity.getHealth() - event.getDamage() > 2) return;
+        if (entity.getHealth() - event.getDamage() > 0) return;
 
-        event.setDamage(1);
+        event.setDamage(0);
         entity.setHealth(entity.getMaxHealth());
 
         boolean isKillAll = DataManager.getInstance().getPlayerData(player).isKillAll();
@@ -60,9 +60,10 @@ public class EntityListeners implements Listener {
         BigInteger amountToKill = isKillAll ? stack : BigInteger.ONE;
         BigInteger dropAmount = setLooting(amountToKill, getLootingBonuses(player.getItemInHand()));
 
-        setKilledAmountMetadata(entity, amountToKill);
         EntityManager.removeStack(entity, amountToKill, spawner);
         dropOrStackSpawnerDrops(spawner, dropAmount, entity.getLocation());
+        setKilledAmountMetadata(entity, amountToKill);
+        setKillerMetadata(entity, player);
         callDeathEvent(entity);
         addMcMMOExp(spawner, player);
     }
@@ -78,14 +79,14 @@ public class EntityListeners implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onTeleport(final EntityTeleportEvent event) {
+    public void onTeleport(EntityTeleportEvent event) {
         if (!event.getEntity().hasMetadata("MobAmount")) return;
 
         event.setCancelled(true);
     }
     
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onEggSpawn(final ItemSpawnEvent event) {
+    public void onEggSpawn(ItemSpawnEvent event) {
         if (!event.getEntity().getItemStack().getType().equals(Material.EGG)) return;
 
         event.setCancelled(true);
@@ -94,6 +95,11 @@ public class EntityListeners implements Listener {
     private void setKilledAmountMetadata(LivingEntity entity, BigInteger amountToKill) {
         entity.removeMetadata("MobKilledAmount", VoltzSpawners.get());
         entity.setMetadata("MobKilledAmount", new FixedMetadataValue(VoltzSpawners.get(), amountToKill));
+    }
+
+    private void setKillerMetadata(LivingEntity entity, Player killer) {
+        entity.removeMetadata("MobKillerName", VoltzSpawners.get());
+        entity.setMetadata("MobKillerName", new FixedMetadataValue(VoltzSpawners.get(), killer.getName()));
     }
     
     private void dropOrStackSpawnerDrops(PlacedSpawner spawner, BigInteger amount, Location location) {
