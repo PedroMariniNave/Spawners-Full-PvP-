@@ -60,12 +60,13 @@ public class EntityListeners implements Listener {
         BigInteger amountToKill = isKillAll ? stack : BigInteger.ONE;
         BigInteger dropAmount = setLooting(amountToKill, getLootingBonuses(player.getItemInHand()));
 
-        entity.setMetadata("MobKilledAmount", new FixedMetadataValue(VoltzSpawners.get(), amountToKill)); // useful for other plugins
+        setKilledAmountMetadata(entity, amountToKill);
         EntityManager.removeStack(entity, amountToKill, spawner);
         dropOrStackSpawnerDrops(spawner, dropAmount, entity.getLocation());
         callDeathEvent(entity);
         addMcMMOExp(spawner, player);
     }
+
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onDeath(EntityDeathEvent event) {
@@ -88,6 +89,11 @@ public class EntityListeners implements Listener {
         if (!event.getEntity().getItemStack().getType().equals(Material.EGG)) return;
 
         event.setCancelled(true);
+    }
+
+    private void setKilledAmountMetadata(LivingEntity entity, BigInteger amountToKill) {
+        entity.removeMetadata("MobKilledAmount", VoltzSpawners.get());
+        entity.setMetadata("MobKilledAmount", new FixedMetadataValue(VoltzSpawners.get(), amountToKill));
     }
     
     private void dropOrStackSpawnerDrops(PlacedSpawner spawner, BigInteger amount, Location location) {
