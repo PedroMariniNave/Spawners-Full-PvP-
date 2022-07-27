@@ -3,6 +3,7 @@ package com.zpedroo.voltzspawners.listeners;
 import com.gmail.nossr50.api.ExperienceAPI;
 import com.gmail.nossr50.datatypes.skills.SkillType;
 import com.gmail.nossr50.datatypes.skills.XPGainReason;
+import com.zpedroo.voltzspawners.VoltzSpawners;
 import com.zpedroo.voltzspawners.managers.DataManager;
 import com.zpedroo.voltzspawners.managers.EntityManager;
 import com.zpedroo.voltzspawners.managers.SerializatorManager;
@@ -23,6 +24,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -58,6 +60,7 @@ public class EntityListeners implements Listener {
         BigInteger amountToKill = isKillAll ? stack : BigInteger.ONE;
         BigInteger dropAmount = setLooting(amountToKill, getLootingBonuses(player.getItemInHand()));
 
+        entity.setMetadata("MobKilledAmount", new FixedMetadataValue(VoltzSpawners.get(), amountToKill)); // useful for other plugins
         EntityManager.removeStack(entity, amountToKill, spawner);
         dropOrStackSpawnerDrops(spawner, dropAmount, entity.getLocation());
         callDeathEvent(entity);
